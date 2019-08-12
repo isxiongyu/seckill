@@ -3,7 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.xiongyu.seckill.dao.SeckillDao">
-    <select id="selGoods" resultType="cn.xiongyu.seckill.bean.Goods">
+    <select id="selSeckillById" resultType="cn.xiongyu.seckill.entity.Seckill">
         select * from seckill where seckill_id = #{seckillId}
     </select>
+    <select id="selAllSeckill" resultType="cn.xiongyu.seckill.entity.Seckill">
+        select * from seckill
+    </select>
+    <update id="ReduceNumber">
+        update seckill set number=number-1
+        where seckill_Id=#{seckillId}
+        and start_time <![CDATA[ <= ]]> #{killTime}
+        and end_time >= #{killTime}
+        and number > 0
+    </update>
 </mapper>

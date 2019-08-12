@@ -1,6 +1,6 @@
 package cn.xiongyu.seckill.controller;
 
-import cn.xiongyu.seckill.bean.Goods;
+import cn.xiongyu.seckill.entity.Seckill;
 import cn.xiongyu.seckill.dao.SeckillDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ public class SeckillController {
     @Autowired
     private SeckillDao seckillDao;
     @GetMapping("/selGoods")
-    private Goods selGoods(int seckillId){
-        return seckillDao.selGoods(seckillId);
+    private Seckill selSeckill(int seckillId){
+        return seckillDao.selSeckillById(seckillId);
     }
 }

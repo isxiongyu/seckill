@@ -1,15 +1,15 @@
-package cn.xiongyu.seckill.bean;
+package cn.xiongyu.seckill.entity;
 
 import java.util.Date;
 
 /**
  * ClassName: Seckill
- * Package: cn.xiongyu.seckill.bean
+ * Package: cn.xiongyu.seckill.entity
  * Description:
  * Date: 19-8-12 下午2:02
  * Author: xiongyu
  */
-public class Goods {
+public class Seckill {
     private int seckillId;
     private String name;
     private int number;
@@ -17,10 +17,10 @@ public class Goods {
     private Date endTime;
     private Date createTime;
 
-    public Goods() {
+    public Seckill() {
     }
 
-    public Goods(int seckillId, String name, int number, Date startTime, Date endTime, Date createTime) {
+    public Seckill(int seckillId, String name, int number, Date startTime, Date endTime, Date createTime) {
         this.seckillId = seckillId;
         this.name = name;
         this.number = number;

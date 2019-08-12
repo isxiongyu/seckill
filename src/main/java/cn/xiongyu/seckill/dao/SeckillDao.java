@@ -1,7 +1,10 @@
 package cn.xiongyu.seckill.dao;
 
-import cn.xiongyu.seckill.bean.Goods;
+import cn.xiongyu.seckill.entity.Seckill;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * ClassName: SeckillDao
@@ -12,5 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SeckillDao {
-    Goods selGoods(int seckillId);
+    Seckill selSeckillById(int seckillId);
+    List<Seckill> selAllSeckill();
+    int ReduceNumber(int seckillId, Date killTime);
 }
