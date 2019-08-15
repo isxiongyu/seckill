@@ -24,6 +24,11 @@ public class Exposer {
         this.endTime = endTime;
     }
 
+    public Exposer(boolean exposed, String md5) {
+        this.exposed = exposed;
+        this.md5 = md5;
+    }
+
     public boolean isExposed() {
         return exposed;
     }

@@ -35,6 +35,8 @@ spring:
 #      - classpath:sql/seckill.sql
 #      - classpath:sql/success_killed.sql
 #    initialization-mode: always
+  thymeleaf:
+    cache: false
 mybatis:
   config-location: classpath:mybatis/mybatis.xml
   mapper-locations: classpath:mybatis/mapper/*.xml

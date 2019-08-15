@@ -3,6 +3,8 @@ package cn.xiongyu.seckill.dao;
 import cn.xiongyu.seckill.entity.SuccessKilled;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * ClassName: SuccessKilledDao
  * Package: cn.xiongyu.seckill.dao

@@ -12,16 +12,37 @@ import cn.xiongyu.seckill.enums.StateEnum;
  */
 public class SeckillExecution {
 
+    private boolean success;
+
     private int seckillId;
 
-    private StateEnum stateEnum;
+    private int state;
+
+    private String stateInf;
 
     private SuccessKilled successKilled;
 
-    public SeckillExecution(int seckillId, StateEnum stateEnum, SuccessKilled successKilled) {
+    public SeckillExecution(boolean success, int seckillId, int state, String stateInf) {
+        this.success = success;
         this.seckillId = seckillId;
-        this.stateEnum = stateEnum;
+        this.state = state;
+        this.stateInf = stateInf;
+    }
+
+    public SeckillExecution(boolean success, int seckillId, int state, String stateInf, SuccessKilled successKilled) {
+        this.success = success;
+        this.seckillId = seckillId;
+        this.state = state;
+        this.stateInf = stateInf;
         this.successKilled = successKilled;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
     public int getSeckillId() {
@@ -32,12 +53,20 @@ public class SeckillExecution {
         this.seckillId = seckillId;
     }
 
-    public StateEnum getStateEnum() {
-        return stateEnum;
+    public int getState() {
+        return state;
     }
 
-    public void setStateEnum(StateEnum stateEnum) {
-        this.stateEnum = stateEnum;
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public String getStateInf() {
+        return stateInf;
+    }
+
+    public void setStateInf(String stateInf) {
+        this.stateInf = stateInf;
     }
 
     public SuccessKilled getSuccessKilled() {
@@ -51,8 +80,10 @@ public class SeckillExecution {
     @Override
     public String toString() {
         return "SeckillExecution{" +
-                "seckillId=" + seckillId +
-                ", stateEnum=" + stateEnum +
+                "success=" + success +
+                ", seckillId=" + seckillId +
+                ", state=" + state +
+                ", stateInf=" + stateInf +
                 ", successKilled=" + successKilled +
                 '}';
     }

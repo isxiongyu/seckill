@@ -27,7 +27,7 @@ public interface SeckillService {
 
     List<Seckill> getAllSeckill();
 
-    Exposer getExportUrl(int seckillId);
+    Exposer getExposer(int seckillId);
 
     SeckillExecution executionKill(int seckillId, String phone, String md5) throws DataWriteException, EndException, RepeatKillException;
 

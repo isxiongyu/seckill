@@ -25,6 +25,11 @@ public class SuccessKilled {
         this.createTime = createTime;
     }
 
+    public SuccessKilled(Seckill seckill, String phone) {
+        this.seckill = seckill;
+        this.phone = phone;
+    }
+
     public Seckill getSeckill() {
         return seckill;
     }

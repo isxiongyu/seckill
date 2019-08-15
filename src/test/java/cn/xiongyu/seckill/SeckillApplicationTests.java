@@ -1,5 +1,6 @@
 package cn.xiongyu.seckill;
 
+import cn.xiongyu.seckill.dao.cache.RedisDao;
 import cn.xiongyu.seckill.dto.Exposer;
 import cn.xiongyu.seckill.dto.SeckillExecution;
 import cn.xiongyu.seckill.entity.Seckill;
@@ -38,7 +39,7 @@ public class SeckillApplicationTests {
     @Test
     public void test03() {
         int seckillId = 3;
-        Exposer exposer = seckillService.getExportUrl(seckillId);
+        Exposer exposer = seckillService.getExposer(seckillId);
         logger.info("exposer={}", exposer);
     }
     @Test
@@ -48,5 +49,20 @@ public class SeckillApplicationTests {
         String md5 = "6e4946b52c58f8a2c69780fb895e1300";
         SeckillExecution executionKill = seckillService.executionKill(seckillId, phone, md5);
         logger.info("executionKill={}", executionKill);
+    }
+    @Autowired
+    private RedisDao redisDao;
+    @Test
+    public void test05() {
+        int seckillId = 3;
+        Seckill seckill = seckillService.getOneSeckill(seckillId);
+        redisDao.putSeckill(seckill);
+    }
+
+    @Test
+    public void test06() {
+        int seckillId = 3;
+        Seckill seckill = redisDao.getSeckill(seckillId);
+        System.out.println(seckill);
     }
 }

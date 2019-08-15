@@ -2,6 +2,7 @@ package cn.xiongyu.seckill.service.impl;
 
 import cn.xiongyu.seckill.dao.SeckillDao;
 import cn.xiongyu.seckill.dao.SuccessKilledDao;
+import cn.xiongyu.seckill.dao.cache.RedisDao;
 import cn.xiongyu.seckill.dto.Exposer;
 import cn.xiongyu.seckill.dto.SeckillExecution;
 import cn.xiongyu.seckill.entity.Seckill;
@@ -38,6 +39,9 @@ public class SeckillServiceImpl implements SeckillService {
     @Autowired
     private SuccessKilledDao successKilledDao;
 
+    @Autowired
+    private RedisDao redisDao;
+
     @Override
     public Seckill getOneSeckill(int seckillId) {
         return seckillDao.selSeckillById(seckillId);
@@ -49,14 +53,23 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     @Override
-    public Exposer getExportUrl(int seckillId) {
-        Seckill seckill = seckillDao.selSeckillById(seckillId);
+    public Exposer getExposer(int seckillId) {
+        Seckill seckill = redisDao.getSeckill(seckillId);
+        if (seckill == null) {
+            System.out.println("查询数据库");
+            seckill = seckillDao.selSeckillById(seckillId);
+            if (seckill == null) {
+                return new Exposer(false, "");
+            } else {
+                redisDao.putSeckill(seckill);
+            }
+        }
         Date now = new Date();
         Date startTime = seckill.getStartTime();
         Date endTime = seckill.getEndTime();
         String md5 = getMd5(seckillId);
         if(startTime.getTime() > now.getTime() || endTime.getTime() < now.getTime()){
-            return new Exposer(false, md5, now, startTime, endTime);
+            return new Exposer(false, "", now, startTime, endTime);
         }else {
             return new Exposer(true, md5, now, startTime, endTime);
         }
@@ -78,11 +91,10 @@ public class SeckillServiceImpl implements SeckillService {
                 throw new RepeatKillException("重复秒杀");
             }else {
                 SuccessKilled successKilled = successKilledDao.selSuccessKilled(seckillId, phone);
-                return new SeckillExecution(seckillId, StateEnum.SUCCESS, successKilled);
+                return new SeckillExecution(true, seckillId, StateEnum.SUCCESS.getState(), StateEnum.SUCCESS.getStateInf(), successKilled);
             }
         }
     }
-
 
     //    获得MD5编码
     private String getMd5(int seckillId) {
